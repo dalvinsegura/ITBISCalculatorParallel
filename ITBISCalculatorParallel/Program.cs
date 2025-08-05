@@ -9,6 +9,6 @@ Console.WriteLine("=== CALCULADORA DE ITBIS CON RECURSIVIDAD PARALELA ===\n");
     var ventas = GeneradorDeVentas.GenerarVentas(10_000_000);
     Console.WriteLine(ventas);
     var procesadorParalelo = new ProcesadorParalelo();
-    procesadorParalelo.EjecutarAsync(ventas);
+    await procesadorParalelo.EjecutarAsync(ventas);
 
 }
