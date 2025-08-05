@@ -1,12 +1,14 @@
-﻿
-
-using ITBISCalculatorParallel.Models;
+﻿using ITBISCalculatorParallel.Models;
+using ITBISCalculatorParallel.Processing;
 using ITBISCalculatorParallel.Services;
 
-var clase = GeneradorDeVentas.GenerarVentas(10);
+Console.WriteLine("=== CALCULADORA DE ITBIS CON RECURSIVIDAD PARALELA ===\n");
 
-
-foreach (var venta in clase.GetRange(0, 3))
+// Generar ventas de prueba
 {
-    Console.WriteLine(venta);
+    var ventas = GeneradorDeVentas.GenerarVentas(10_000_000);
+    Console.WriteLine(ventas);
+    var procesadorParalelo = new ProcesadorParalelo();
+    procesadorParalelo.EjecutarAsync(ventas);
+
 }
