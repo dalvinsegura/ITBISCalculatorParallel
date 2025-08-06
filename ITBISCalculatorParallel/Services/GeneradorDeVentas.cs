@@ -4,8 +4,6 @@ namespace ITBISCalculatorParallel.Services
 {
     public class GeneradorDeVentas
     {
-        private static string[] colmados = { "Colmado A", "Colmado B", "Colmado C" };
-        private static string[] categorias = { "Bebidas", "Basicos", "Limpieza", "Cigarros" };
         private static Random rnd = new Random();
 
         public static List<Venta> GenerarVentas(int cantidad)
@@ -16,8 +14,8 @@ namespace ITBISCalculatorParallel.Services
             {
                 var venta = new Venta
                 {
-                    Colmado = colmados[rnd.Next(colmados.Length)],
-                    Categoria = categorias[rnd.Next(categorias.Length)],
+                    Colmado = DatosGenerales.colmados[rnd.Next(DatosGenerales.colmados.Length)],
+                    Categoria = DatosGenerales.categorias[rnd.Next(DatosGenerales.categorias.Length)],
                     Monto = (decimal)(rnd.NextDouble() * (500 - 100) + 100),
                     Fecha = DateTime.Today
                 };

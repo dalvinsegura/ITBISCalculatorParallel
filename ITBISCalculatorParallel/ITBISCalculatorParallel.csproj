@@ -8,7 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="tests\" />
+      <Compile Remove="tests\**" />
+      <EmbeddedResource Remove="tests\**" />
+      <None Remove="tests\**" />
     </ItemGroup>
 
 </Project>
