@@ -11,4 +11,8 @@ Console.WriteLine("=== CALCULADORA DE ITBIS CON RECURSIVIDAD PARALELA ===\n");
     var procesadorParalelo = new ProcesadorParalelo();
     await procesadorParalelo.EjecutarAsync(ventas);
 
+    // prueba secuencial weeee
+    var procesadorSecuencial = new ProcesadorSecuencial();
+    procesadorSecuencial.Ejecutar(ventas);
+
 }
