@@ -25,6 +25,17 @@ namespace ITBISCalculatorParallel.Processing
             Console.WriteLine($"[Con Lock] Tiempo: {sw.ElapsedMilliseconds} ms");
         }
 
+        public async Task EjecutarSpeedupAsync(List<Venta> ventas)
+        {
+            // List<Venta> ventas = GeneradorDeVentas.GenerarVentas(1_000_000);
+            int umbral = 10000;
+
+            var sw = Stopwatch.StartNew();
+            await CalcularTotalesConLock(ventas, 0, ventas.Count - 1, umbral);
+            sw.Stop();
+
+        }
+
         private async Task CalcularTotalesConLock(List<Venta> ventas, int inicio, int fin, int umbral)
         {
             int cantidad = fin - inicio + 1;

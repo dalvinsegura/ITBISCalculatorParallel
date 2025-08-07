@@ -26,5 +26,19 @@ public class ProcesadorSecuencial
         Console.WriteLine($"[Secuencial] Total ITBIS: {totalITBIS:C}");
         Console.WriteLine($"[Secuencial] Tiempo: {sw.ElapsedMilliseconds} ms");
     }
+    public void EjecutarSpeedup(List<Venta> ventas)
+    {
+        decimal totalVentas = 0;
+        decimal totalITBIS = 0;
 
+        var sw = Stopwatch.StartNew();
+
+        foreach (var venta in ventas)
+        {
+            totalVentas += venta.Monto;
+            totalITBIS += venta.Monto * TASA_ITBIS;
+        }
+
+        sw.Stop();
+    }
 }
