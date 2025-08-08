@@ -6,7 +6,7 @@ namespace ITBISCalculatorParallel.Services
     {
         private static Random rnd = new Random();
 
-        public static List<Venta> GenerarVentas(int cantidad)
+        public static List<Venta> GenerarVentas(long cantidad)
         {
             var ventas = new List<Venta>();
 

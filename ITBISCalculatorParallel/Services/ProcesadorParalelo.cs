@@ -11,7 +11,7 @@ namespace ITBISCalculatorParallel.Processing
         
         public async Task<ResultadoProcesamiento> EjecutarAsync(List<Venta> ventas)
         {
-            int umbral = 10_000_000;
+            int umbral = 10000;
 
             Stopwatch sw = Stopwatch.StartNew();
             var resultado = await CalcularTotalesParalelo(ventas, 0, ventas.Count - 1, umbral);
