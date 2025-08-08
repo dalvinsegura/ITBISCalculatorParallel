@@ -8,18 +8,21 @@ namespace ITBISCalculatorParallel.Processing
     public class ProcesadorParalelo
     {
         private const decimal TASA_ITBIS = 0.18m;
-        public async Task EjecutarAsync(List<Venta> ventas)
+        
+        public async Task<ResultadoProcesamiento> EjecutarAsync(List<Venta> ventas)
         {
-            // List<Venta> ventas = GeneradorDeVentas.GenerarVentas(1_000_000); // 1 millon de ventas
             int umbral = 10_000_000;
 
             Stopwatch sw = Stopwatch.StartNew();
             var resultado = await CalcularTotalesParalelo(ventas, 0, ventas.Count - 1, umbral);
             sw.Stop();
 
-            Console.WriteLine($"[Paralelo] Total Ventas: {resultado.TotalVentas:C}");
-            Console.WriteLine($"[Paralelo] Total ITBIS: {resultado.TotalITBIS:C}");
-            Console.WriteLine($"[Paralelo] Tiempo: {sw.ElapsedMilliseconds} ms");
+            return new ResultadoProcesamiento(
+                resultado.TotalVentas,
+                resultado.TotalITBIS,
+                sw.ElapsedMilliseconds,
+                "Paralelo"
+            );
         }
 
         public record Resultado(decimal TotalVentas, decimal TotalITBIS);

@@ -11,29 +11,37 @@ namespace ITBISCalculatorParallel.Processing
         private decimal totalITBISCompartido = 0;
         private readonly object candado = new();
 
-        public async Task EjecutarAsync(List<Venta> ventas)
+        public async Task<ResultadoProcesamiento> EjecutarAsync(List<Venta> ventas)
         {
-            // List<Venta> ventas = GeneradorDeVentas.GenerarVentas(1_000_000);
+            totalVentasCompartido = 0;
+            totalITBISCompartido = 0;
+            
             int umbral = 10000;
 
             var sw = Stopwatch.StartNew();
             await CalcularTotalesConLock(ventas, 0, ventas.Count - 1, umbral);
             sw.Stop();
 
-            Console.WriteLine($"[Con Lock] Total Ventas: {totalVentasCompartido:C}");
-            Console.WriteLine($"[Con Lock] Total ITBIS: {totalITBISCompartido:C}");
-            Console.WriteLine($"[Con Lock] Tiempo: {sw.ElapsedMilliseconds} ms");
+            return new ResultadoProcesamiento(
+                totalVentasCompartido,
+                totalITBISCompartido,
+                sw.ElapsedMilliseconds,
+                "Con Lock"
+            );
         }
 
-        public async Task EjecutarSpeedupAsync(List<Venta> ventas)
+        public async Task<long> EjecutarSpeedupAsync(List<Venta> ventas)
         {
-            // List<Venta> ventas = GeneradorDeVentas.GenerarVentas(1_000_000);
+            totalVentasCompartido = 0;
+            totalITBISCompartido = 0;
+            
             int umbral = 10000;
 
             var sw = Stopwatch.StartNew();
             await CalcularTotalesConLock(ventas, 0, ventas.Count - 1, umbral);
             sw.Stop();
 
+            return sw.ElapsedMilliseconds;
         }
 
         private async Task CalcularTotalesConLock(List<Venta> ventas, int inicio, int fin, int umbral)

@@ -7,7 +7,7 @@ public class ProcesadorSecuencial
 {
     private const decimal TASA_ITBIS = 0.18m;
 
-    public void Ejecutar(List<Venta> ventas)
+    public ResultadoProcesamiento Ejecutar(List<Venta> ventas)
     {
         decimal totalVentas = 0;
         decimal totalITBIS = 0;
@@ -22,11 +22,15 @@ public class ProcesadorSecuencial
 
         sw.Stop();
 
-        Console.WriteLine($"[Secuencial] Total Ventas: {totalVentas:C}");
-        Console.WriteLine($"[Secuencial] Total ITBIS: {totalITBIS:C}");
-        Console.WriteLine($"[Secuencial] Tiempo: {sw.ElapsedMilliseconds} ms");
+        return new ResultadoProcesamiento(
+            totalVentas,
+            totalITBIS,
+            sw.ElapsedMilliseconds,
+            "Secuencial"
+        );
     }
-    public void EjecutarSpeedup(List<Venta> ventas)
+
+    public long EjecutarSpeedup(List<Venta> ventas)
     {
         decimal totalVentas = 0;
         decimal totalITBIS = 0;
@@ -40,5 +44,7 @@ public class ProcesadorSecuencial
         }
 
         sw.Stop();
+
+        return sw.ElapsedMilliseconds;
     }
 }
