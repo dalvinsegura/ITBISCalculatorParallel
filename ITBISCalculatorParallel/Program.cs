@@ -1,30 +1,17 @@
-﻿using ITBISCalculatorParallel.Models;
-using ITBISCalculatorParallel.Processing;
-using ITBISCalculatorParallel.Services;
+﻿using ITBISCalculatorParallel.Services;
 
-Console.WriteLine("=== CALCULADORA DE ITBIS CON RECURSIVIDAD PARALELA ===\n");
+// Configuracion inicial de la consola
+Console.OutputEncoding = System.Text.Encoding.UTF8; // Para soportar simbolos de moneda
+Console.Title = "Calculadora de ITBIS con Paralelismo";
 
-// Generar ventas de prueba
+try
 {
-   var ventas = GeneradorDeVentas.GenerarVentas(10_000_000);
-
-    var procesadorParalelo = new ProcesadorParalelo();
-    await procesadorParalelo.EjecutarAsync(ventas);
-
-    Console.WriteLine();
-
-    var procesadorParaleloconLock = new ProcesadorParaleloConLock();
-    await procesadorParaleloconLock.EjecutarAsync(ventas);
-
-    Console.WriteLine();
-
-    // prueba secuencial weeee
-    var procesadorSecuencial = new ProcesadorSecuencial();
-    procesadorSecuencial.Ejecutar(ventas);
-
-    Console.WriteLine();
-
-    var speedup = new Speedup();
-    await speedup.Iniciar(10_000_000);
-
+    var app = new ConsolaApp();
+    await app.Iniciar();
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"\nERROR: {ex.Message}");
+    Console.WriteLine("Presione cualquier tecla para salir...");
+    Console.ReadKey();
 }
