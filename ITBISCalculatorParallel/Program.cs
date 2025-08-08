@@ -1,3 +1,17 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using ITBISCalculatorParallel.Services;
 
-Console.WriteLine("Hello, World!");
+// Configuracion inicial de la consola
+Console.OutputEncoding = System.Text.Encoding.UTF8; // Para soportar simbolos de moneda
+Console.Title = "Calculadora de ITBIS con Paralelismo";
+
+try
+{
+    var app = new ConsolaApp();
+    await app.Iniciar();
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"\nERROR: {ex.Message}");
+    Console.WriteLine("Presione cualquier tecla para salir...");
+    Console.ReadKey();
+}
